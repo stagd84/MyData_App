@@ -52,7 +52,7 @@ with tab3:
         selected_column = st.selectbox('Select Column', columns)
         unique_of_selected_col = st.session_state.df[selected_column].unique()
         selected_value = st.selectbox(f'Select of {selected_column}', unique_of_selected_col)
-        selected_df = st.session_state.df[st.session_state.df[selected_column]==selected_value]
+        selected_df = st.session_state.df[st.session_state.df[selected_column]==selected_value].drop(columns=selected_column)
         st.dataframe(selected_df, hide_index=True) # instead of st.write(selected_df) because i dont want the index
         # st.write(selected_df)
     else:
