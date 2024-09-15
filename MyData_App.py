@@ -36,15 +36,15 @@ with tab2:
         selected_view = st.selectbox('Select View', My_Views)
         if selected_view == 'View All':
             st.subheader('View All')
-            st.dataframe(st.session_state.df, hide_index=True)#instead of st.write(st.session_state.df) because i dont want the index
-            # st.write(st.session_state.df)
+            # st.dataframe(st.session_state.df, hide_index=True)#instead of st.write(st.session_state.df) because i dont want the index
+            st.write(st.session_state.df)
         else:
             st.subheader('View Top5')
             st.dataframe(st.session_state.df.head(),hide_index= True)
             # st.write(st.session_state.df.head())
     else:
         st.warning("Please upload a file in the 'Upload File' tab.")        
-# Tab2: Filter Data    
+# Tab3: Filter Data    
 with tab3:  
     st.header("Filter Data")
     if st.session_state.df is not None:
@@ -53,8 +53,10 @@ with tab3:
         unique_of_selected_col = st.session_state.df[selected_column].unique()
         selected_value = st.selectbox(f'Select of {selected_column}', unique_of_selected_col)
         selected_df = st.session_state.df[st.session_state.df[selected_column]==selected_value].drop(columns=selected_column)
-        st.dataframe(selected_df, hide_index=True) # instead of st.write(selected_df) because i dont want the index
-        # st.write(selected_df)
+        selected_df = selected_df.reset_index(drop=True)
+        selected_df.index =selected_df.index + 1
+        # st.dataframe(selected_df) # instead of st.write(selected_df) because i dont want the index
+        st.write(selected_df)
     else:
         st.warning("Please upload a file in the 'Upload File' tab.")   
     
